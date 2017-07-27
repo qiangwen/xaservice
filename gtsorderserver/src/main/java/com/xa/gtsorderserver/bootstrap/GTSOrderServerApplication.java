@@ -7,8 +7,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-//@EnableEurekaClient
-//@EnableFeignClients
+@EnableEurekaClient
+@EnableFeignClients(basePackages={"com.xa.gtsorderserver.api"})
 @ComponentScan(basePackages={"com.xa.gtsorderserver"})
 public class GTSOrderServerApplication {
 

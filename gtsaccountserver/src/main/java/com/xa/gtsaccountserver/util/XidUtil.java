@@ -1,10 +1,10 @@
-package com.xa.gtsorderserver.util;
+package com.xa.gtsaccountserver.util;
 
 import javax.transaction.xa.Xid;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlXid;
-import com.xa.gtsorderserver.domain.GtsId;
-import com.xa.gtsorderserver.enums.App;
+import com.xa.gtsaccountserver.domain.GtsId;
+import com.xa.gtsaccountserver.enums.App;
 
 /**
  * 生成全局gtsid
@@ -14,7 +14,7 @@ import com.xa.gtsorderserver.enums.App;
 public class XidUtil {
 	
 	private static final int formatId = 0;
-
+	
 	public static Xid genXid(GtsId gtsId){
 		Xid xid = new MysqlXid(gtsId.getGtsId().getBytes(), gtsId.getBequalId().getBytes(),gtsId.getFormatId());
 		return xid;

@@ -11,7 +11,12 @@ import javax.transaction.xa.Xid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xa.gtsorderserver.api.XaAccountApi;
+import com.xa.gtsorderserver.domain.GtsId;
+import com.xa.gtsorderserver.domain.Order;
 import com.xa.gtsorderserver.enums.App;
+import com.xa.gtsorderserver.request.AccountParam;
+import com.xa.gtsorderserver.response.DataResponse;
 import com.xa.gtsorderserver.util.XidUtil;
 import com.xa.gtsorderserver.xa.XAService;
 
@@ -26,7 +31,10 @@ public class OrderService {
 	@Autowired
 	private XAService xaService;
 	
-	private static final String add_order_sql =  "insert into bizorder values(?,?,?,?)";
+	@Autowired
+	private XaAccountApi xaAccountApi;
+	
+	private static final String add_order_sql =  "insert into bizorder(orderMoney,orderUserId,projectId) values(?,?,?)";
 
 	/**
 	 * 购买订单
@@ -38,21 +46,34 @@ public class OrderService {
 	    //获取xaConnection
 		XAConnection xaConnection = xaService.getXaConnection();
 		//开启一个全局事务
-		Xid xid = XidUtil.genXid(App.ORDERSEVER);//获取xid
+		GtsId gtsId = XidUtil.genGtsId(App.ORDERSEVER);
+		Xid xid = XidUtil.genXid(gtsId);//获取xid
 		xaService.startXa(xaConnection, xid);
 		//执行sql语句
 		Connection conn = xaService.getConnection(xaConnection);
-		addOrder(conn);
+		Order order = addOrder(conn);
 		xaService.endXa(xaConnection, xid);
 		xaService.prepareXa(xaConnection, xid);
+		
+		//调用账户服务
+		AccountParam accountParam = new AccountParam();
+		accountParam.setMoney(order.getOrderMoney());
+		accountParam.setUserId(order.getOrderUserId());
+		accountParam.setGtsId(gtsId);
+		DataResponse<Integer> dataResponse =  xaAccountApi.updateAccount(accountParam);
+		dataResponse.getData();
 	}
 	
-	public void addOrder(Connection conn) throws SQLException{
+	public Order addOrder(Connection conn) throws SQLException{
+		Order order = new Order();
+		order.setOrderMoney(BigDecimal.TEN);
+		order.setOrderUserId(1);
+		order.setProjectId(1);
 		PreparedStatement preState = conn.prepareStatement(add_order_sql);
-		preState.setInt(1, 2);
-		preState.setBigDecimal(2, BigDecimal.TEN);
-		preState.setInt(3, 7);
-		preState.setInt(4, 3);
+		preState.setBigDecimal(1, order.getOrderMoney());
+		preState.setInt(2, order.getOrderUserId());
+		preState.setInt(3, order.getProjectId());
 		preState.executeUpdate();
+		return order;
 	}
 }

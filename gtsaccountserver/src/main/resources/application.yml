@@ -3,12 +3,32 @@ server:
 spring:
   application:
     name: accountserver
+  datasource:
+    url: 'jdbc:mysql://127.0.0.1:3306/xa_account?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC'
+    username: 'root'
+    password: '123456'
+    platform: mysql
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    initialSize: 10
+    minIdle: 10
+    maxActive: 50
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 5000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x'
+    validationQueryTimeout: 60
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: false
     
 #eureka配置
 eureka:
   client:
     service-url:
-      defaultZone: http://xa.qdfae.com:7000/eureka/
+      defaultZone: http://xa.qdfae.com:7100/eureka/
       healthcheck: 
         enabled: true   
 #actuator 监控配置
@@ -16,7 +36,12 @@ management:
   port: 8102
   context-path: /admin
 
-
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
 
 
 

@@ -1,13 +1,12 @@
-package com.xa.gtsorderserver.xa;
+package com.xa.gtsaccountserver.xa;
 
 import java.sql.Connection;
 
+import javax.annotation.Resource;
 import javax.sql.XAConnection;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class XAService {
 	
-	@Autowired
-	@Qualifier("gtsXaDataSouce")
+	@Resource(name = "gtsXaDataSouce")
 	private GTSXaDataSource xaDataSource;
 	
 	public XAConnection getXaConnection() throws Exception{

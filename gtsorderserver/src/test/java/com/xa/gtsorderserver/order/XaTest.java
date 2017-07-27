@@ -25,4 +25,9 @@ public class XaTest {
 	public void testCommit() throws Exception{
 		xaService.commit();
 	}
+	
+	@Test
+	public void rollback() throws Exception{
+		xaService.rollback();
+	}
 }
