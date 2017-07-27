@@ -1,0 +1,35 @@
+server:
+  port: 7102
+spring:
+  application:
+    name: accountserver
+    
+#eureka配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://xa.qdfae.com:7000/eureka/
+      healthcheck: 
+        enabled: true   
+#actuator 监控配置
+management:
+  port: 8102
+  context-path: /admin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+include 'gtsserver','gtsclient','gtseurekaserver','gtsorderserver','gtsaccountserver'
+
+rootProject.name = 'xaservice'

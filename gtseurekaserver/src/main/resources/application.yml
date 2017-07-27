@@ -1,0 +1,13 @@
+#单机模式
+server:
+  port: 7100
+eureka:
+  instance:
+    hostname: xa.qdfae.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false

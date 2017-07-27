@@ -1,0 +1,23 @@
+buildscript {
+		ext {
+			springBootVersion = '1.4.5.RELEASE'
+		}
+		repositories {
+       		maven {
+		 		url "http://nexus.cfaoe.com/nexus/content/groups/public/"
+       		}
+    	}
+		dependencies {
+			classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+		}
+}
+
+dependencies {
+   	compile 'org.springframework.cloud:spring-cloud-starter-eureka'
+   	compile 'org.springframework.boot:spring-boot-starter-actuator'
+   	compile 'org.springframework.cloud:spring-cloud-starter-feign'
+   	compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.1'
+   	compile 'com.alibaba:druid:1.1.2'
+   	compile 'mysql:mysql-connector-java:5.1.43'
+   	testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
