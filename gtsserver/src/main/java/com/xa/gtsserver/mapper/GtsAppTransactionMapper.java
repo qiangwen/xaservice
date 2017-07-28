@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.xa.gtsserver.domain.GtsAppTransaction;
 
@@ -17,4 +18,7 @@ public interface GtsAppTransactionMapper {
 	
 	@Select("SELECT * FROM gts_app_transaction WHERE globalTransactionId = #{globalTransactionId}")
 	List<GtsAppTransaction> findByGlobalTransactionId(@Param("globalTransactionId") int globalTransactionId);
+
+	@Update("UPDATE gts_app_transaction SET xaStatus = #{xaStatus},versionNo = versionNo + 1 WHERE id = #{id} AND versionNo = #{versionNo}")
+	int updateXaStatus(GtsAppTransaction appTransaction);
 }

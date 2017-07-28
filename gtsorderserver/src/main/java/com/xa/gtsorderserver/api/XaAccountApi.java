@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.xa.gtsorderserver.request.AccountParam;
+import com.xa.gtsorderserver.request.account.AccountParam;
 import com.xa.gtsorderserver.response.DataResponse;
 
 @FeignClient(name="accountserver",path="/xa/account")

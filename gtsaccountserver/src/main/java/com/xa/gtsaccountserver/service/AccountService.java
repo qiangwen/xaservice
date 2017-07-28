@@ -9,9 +9,11 @@ import javax.transaction.xa.Xid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xa.gtsaccountserver.api.GtsServerApi;
 import com.xa.gtsaccountserver.domain.GtsId;
 import com.xa.gtsaccountserver.enums.App;
 import com.xa.gtsaccountserver.request.AccountParam;
+import com.xa.gtsaccountserver.request.gtsserver.AppTransactionRequest;
 import com.xa.gtsaccountserver.util.XidUtil;
 import com.xa.gtsaccountserver.xa.XAService;
 
@@ -25,6 +27,9 @@ public class AccountService {
 
 	@Autowired
 	private XAService xaService;
+	
+	@Autowired
+	private GtsServerApi gtsServerApi;
 	
 	private static final String update_account_sql = "update bizaccount set avaliableMoney = avaliableMoney - ?,balance = balance - ? where userId = ? ";
 	
@@ -41,6 +46,13 @@ public class AccountService {
 		updateAccount(accountParam,conn);
 		xaService.endXa(xaConnection, xid);
 		xaService.prepareXa(xaConnection, xid);
+		
+		//向事务管理器注册事务
+		AppTransactionRequest request = new AppTransactionRequest();
+		request.setApp(App.ACCOUNTSEVER);
+		request.setGtsId(gtsId.getGtsId());
+		request.setAppXid(String.format("%s:%s:%s", aGtsId.getGtsId(),aGtsId.getBequalId(),aGtsId.getFormatId()));
+		gtsServerApi.registerAppTransaction(request);
 		return 0;
 	}
 

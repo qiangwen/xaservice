@@ -1,4 +1,4 @@
-package com.xa.gtsorderserver.request;
+package com.xa.gtsorderserver.request.account;
 
 import java.math.BigDecimal;
 
