@@ -1,6 +1,7 @@
 package com.xa.gtsserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class GtsGlobalTransactionController {
 	private GtsGlobalService gtsGlobalService;
 
 	@RequestMapping(value = "/registertransaction",method = RequestMethod.POST)
-	public DataResponse<Boolean> registGlobalTransaction(GlobalTransactionRequest request){
+	public DataResponse<Boolean> registGlobalTransaction(@RequestBody GlobalTransactionRequest request){
 		boolean flag = gtsGlobalService.registGlobalTransaction(request);
 		DataResponse<Boolean> dataResponse = DataResponse.build();
 		dataResponse.setRetcode(ErrorCode.OK.getCode())
@@ -29,7 +30,7 @@ public class GtsGlobalTransactionController {
 	}
 	
 	@RequestMapping(value = "/subimttransaction",method = RequestMethod.POST)
-	public DataResponse<Boolean> sumbitGlobalTransaction(GlobalTransactionRequest request){
+	public DataResponse<Boolean> sumbitGlobalTransaction(@RequestBody GlobalTransactionRequest request){
 		boolean flag = gtsGlobalService.sumbitGlobalTransaction(request);
 		DataResponse<Boolean> dataResponse = DataResponse.build();
 		dataResponse.setRetcode(ErrorCode.OK.getCode())

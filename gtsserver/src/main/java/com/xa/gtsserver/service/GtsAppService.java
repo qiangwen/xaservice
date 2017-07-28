@@ -43,7 +43,7 @@ public class GtsAppService {
 		transaction.setAppXid(request.getAppXid());
 		transaction.setGlobalTransactionId(id);
 		transaction.setXaStatus(AppXaStatus.PREPARED.getStatus());
-		return null;
+		return transaction;
 	}
 
 }

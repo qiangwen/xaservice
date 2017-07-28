@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients
+@EnableFeignClients(basePackages={"com.xa.gtsaccountserver.api"})
 @ComponentScan(basePackages={"com.xa.gtsaccountserver"})
 public class GTSAccountServerApplication {
 

@@ -80,7 +80,11 @@ public class OrderService {
 		DataResponse<Integer> dataResponse =  xaAccountApi.updateAccount(accountParam);
 		if(dataResponse.getRetcode() == ErrorCode.OK.getCode()){
 			//调用commit当前全局事务中的所有事务
-			
+//			GlobalTransactionRequest submitRequest = new GlobalTransactionRequest();
+//			submitRequest.setGtsId(gtsId.getGtsId());
+//			gtsServerApi.sumbitGlobalTransaction(submitRequest);
+		}else{
+			//rollback当前全局事务中的所有事务
 		}
 	}
 	

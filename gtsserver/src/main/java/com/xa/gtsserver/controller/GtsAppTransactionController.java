@@ -1,7 +1,9 @@
 package com.xa.gtsserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xa.gtsserver.enums.ErrorCode;
@@ -17,8 +19,8 @@ public class GtsAppTransactionController {
 	private GtsAppService gtsAppService;
 	
 	
-	@RequestMapping("/registertransaction")
-	public DataResponse<Boolean> registerAppTransaction(AppTransactionRequest request){
+	@RequestMapping(value = "/registertransaction",method = RequestMethod.POST)
+	public DataResponse<Boolean> registerAppTransaction(@RequestBody AppTransactionRequest request){
 		boolean flag = gtsAppService.registerAppTransaction(request);
 		DataResponse<Boolean> dataResponse = DataResponse.build();
 		dataResponse.setRetcode(ErrorCode.OK.getCode())

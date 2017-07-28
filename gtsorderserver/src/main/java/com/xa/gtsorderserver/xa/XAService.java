@@ -92,7 +92,11 @@ public class XAService {
 		XAConnection xaConnection = getXaConnection();
 		Xid[] xids = recoverXa(xaConnection);
 		for(Xid xid:xids){
-			rollbackXa(xaConnection, xid);
+			try {
+				rollbackXa(xaConnection, xid);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}
 }

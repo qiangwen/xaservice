@@ -2,6 +2,7 @@ package com.xa.gtsorderserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class XaController {
 	 * @throws Exception 
 	 * @date 2017年7月28日 下午2:31:06
 	 */
-	@RequestMapping("/submittransaction")
+	@RequestMapping(value = "/submittransaction",method=RequestMethod.POST)
 	public DataResponse<Boolean> submitTransaction(@RequestParam("appXid") String appXid) throws Exception{
 		boolean flag = orderXaService.submitTransaction(appXid);
 		DataResponse<Boolean> dataResponse = DataResponse.build();
@@ -42,7 +43,7 @@ public class XaController {
 	 * @author qiang.wen
 	 * @date 2017年7月28日 下午2:39:42
 	 */
-	@RequestMapping("/rollbacktransaction")
+	@RequestMapping(value = "/rollbacktransaction",method=RequestMethod.POST)
 	public DataResponse<Boolean> rollbackTransaction(@RequestParam("appXid") String appXid) throws Exception{
 		boolean flag = orderXaService.rollbackTransaction(appXid);
 		DataResponse<Boolean> dataResponse = DataResponse.build();
