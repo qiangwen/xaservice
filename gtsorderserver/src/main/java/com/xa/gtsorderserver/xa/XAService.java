@@ -35,6 +35,13 @@ public class XAService {
 		return connc;
 	}
 	
+	public void closeXaConnection(XAConnection xaConnection) throws Exception{
+		if(xaConnection != null){
+			Connection connc = xaConnection.getConnection();
+			connc.close();
+		}
+	}
+	
 	public void startXa(XAConnection xaConnection,Xid xid) throws Exception{
 		XAResource xaResource = xaConnection.getXAResource();
 		if(xaResource != null){
@@ -47,6 +54,7 @@ public class XAService {
 		if(xaResource != null){
 			xaResource.end(xid, XAResource.TMSUCCESS);
 		}
+		
 	}
 	
 	public void prepareXa(XAConnection xaConnection,Xid xid) throws Exception{
@@ -67,6 +75,14 @@ public class XAService {
 		XAResource xaResource = xaConnection.getXAResource();
 		if(xaResource != null){
 			xaResource.rollback(xid);
+		}
+		
+	}
+	
+	public void forgetXa(XAConnection xaConnection,Xid xid) throws Exception{
+		XAResource xaResource = xaConnection.getXAResource();
+		if(xaResource != null){
+			xaResource.forget(xid);
 		}
 	}
 	

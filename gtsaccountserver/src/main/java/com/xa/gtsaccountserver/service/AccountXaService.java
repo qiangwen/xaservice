@@ -22,6 +22,7 @@ public class AccountXaService {
 		GtsId gtsId = new GtsId(ids[0], ids[1], Integer.parseInt(ids[2]));
 		Xid xid = XidUtil.genXid(gtsId);
 		xaService.commitXa(xaConnection, xid);
+		xaService.closeXaConnection(xaConnection);
 		return true;
 	}
 
@@ -31,6 +32,7 @@ public class AccountXaService {
 		GtsId gtsId = new GtsId(ids[0], ids[1], Integer.parseInt(ids[2]));
 		Xid xid = XidUtil.genXid(gtsId);
 		xaService.rollbackXa(xaConnection, xid);
+		xaService.closeXaConnection(xaConnection);
 		return true;
 	}
 }

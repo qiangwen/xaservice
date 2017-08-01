@@ -57,13 +57,13 @@ public class GtsGlobalService {
 			return false;
 		}
 		List<GtsAppTransaction> appTransList = gtsAppTransactionMapper.findByGlobalTransactionId(globalTrans.getId());
-		appTransList.forEach(appTransaction ->{
+		for(GtsAppTransaction appTransaction : appTransList){
 			//循环调用各个应用提交事务
 			callAppSumitTransaction(appTransaction);
 			//更新状态
 			appTransaction.setXaStatus(AppXaStatus.COMMITED.getStatus());
 			gtsAppTransactionMapper.updateXaStatus(appTransaction);
-		});
+		}
 		globalTrans.setGtsStatus(GlobalXaStatus.COMMITED.getStatus());
 		gtsGlobalTransactionMapper.updateXaStatus(globalTrans);
 		return true;

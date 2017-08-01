@@ -17,7 +17,7 @@ public interface GtsGlobalTransactionMapper {
 	@Select("SELECT * FROM gts_global_transaction WHERE gtsId = #{gtsId}")
 	GtsGlobalTransaction getByGtsId(@Param("gtsId") String gtsId);
 	
-	@Update("UPDATE gts_global_transaction SET gtsStatus = #{gtsStatus},versonNo = versonNo + 1 WHERE id = #{id} AND versonNo = #{versonNo}")
+	@Update("UPDATE gts_global_transaction SET gtsStatus = #{gtsStatus},versionNo = versionNo + 1 WHERE id = #{id} AND versionNo = #{versionNo}")
 	int updateXaStatus(GtsGlobalTransaction globalTrans);
 
 }

@@ -66,6 +66,7 @@ public class OrderService {
 		Order order = addOrder(conn);
 		xaService.endXa(xaConnection, xid);
 		xaService.prepareXa(xaConnection, xid);
+		xaService.closeXaConnection(xaConnection);
 		//把当前事务加入到全局事务中
 		AppTransactionRequest appRequest = new AppTransactionRequest();
 		appRequest.setApp(App.ORDERSEVER);

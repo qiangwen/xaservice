@@ -46,7 +46,7 @@ public class AccountService {
 		updateAccount(accountParam,conn);
 		xaService.endXa(xaConnection, xid);
 		xaService.prepareXa(xaConnection, xid);
-		
+		xaService.closeXaConnection(xaConnection);
 		//向事务管理器注册事务
 		AppTransactionRequest request = new AppTransactionRequest();
 		request.setApp(App.ACCOUNTSEVER);

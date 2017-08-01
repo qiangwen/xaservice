@@ -54,6 +54,13 @@ public class XAService {
 		}
 	}
 	
+	public void closeXaConnection(XAConnection xaConnection) throws Exception{
+		if(xaConnection != null){
+			Connection conn = xaConnection.getConnection();
+			conn.close();
+		}
+	}
+	
 	public void commitXa(XAConnection xaConnection,Xid xid) throws Exception{
 		XAResource xaResource = xaConnection.getXAResource();
 		if(xaResource != null){
